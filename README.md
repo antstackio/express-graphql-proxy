@@ -57,8 +57,7 @@ $ yarn add @antstackio/express-graphql-proxy
 There are services that provide graphql endpoints over http leaving the developer to come up with their own mechanism for authorisation and controllings permission for the  access of resources. This library help in bootstrapping a middleware proxy server that makes it easy to implement RBAC without loosing the fun in using graphql from the client.
 
 ## Documentation
-
-TODO
+- [Api documentation](./API.md)
 
 ## Examples
 
