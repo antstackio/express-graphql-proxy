@@ -31,13 +31,14 @@ function createApp(reqParams: ReqParams, handler: HandlerFunc) {
 
       if (!proceed) {
         res.statusCode = 401;
-        res.json({
+        return res.json({
           message: "unauthenticated request",
         });
       }
-      next();
+
+      // if user has manually responded then skip going further
+      if (!res.headersSent) next();
     } catch (e) {
-      console.log("error is", e);
       res.statusCode = 400;
       res.json({
         message: "something went wrong",
@@ -55,7 +56,11 @@ function createApp(reqParams: ReqParams, handler: HandlerFunc) {
 
       res.send({ data });
     } catch (e) {
-      console.log("error is", e);
+      res.statusCode = 400;
+      res.json({
+        message: "something went wrong",
+        error: e.message,
+      });
     }
   });
 
