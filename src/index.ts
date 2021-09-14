@@ -9,7 +9,7 @@ import { ReqParams, HandlerFunc } from "./types";
 /**
  * creates an express app which acts as a proxy
  **/
-function createApp(reqParams: ReqParams, handler: HandlerFunc) {
+export function createApp(reqParams: ReqParams, handler: HandlerFunc) {
   const expressApp = express();
 
   // register middlewares
@@ -66,5 +66,3 @@ function createApp(reqParams: ReqParams, handler: HandlerFunc) {
 
   return expressApp;
 }
-
-export default createApp;

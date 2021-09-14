@@ -3,7 +3,7 @@
 A graphql proxy server implemented on top of express for adding custom RBAC to existing graphql endpoints.
 
 ```js
-import createApp from '@antstackio/express-graphql-proxy'
+import { createApp } from '@antstackio/express-graphql-proxy'
 
 const requestParams = {
 	resourceUri: "https://graphql-pokemon2.vercel.app",
@@ -28,7 +28,7 @@ function pokemons(variables, selectionFields, {req, res}) {
 	return true;
 }
 
-function HandlerFunc() {
+function HandlerFunc(gqlObject, context) {
 
   const result = gqlObject.queryObjects.every((item) =>
     // map the gqlObject to a suitable handler
