@@ -12,6 +12,10 @@ import { ReqParams, HandlerFunc } from "./types";
 export function createApp(reqParams: ReqParams, handler: HandlerFunc) {
   const expressApp = express();
 
+  if (!handler) {
+    throw new Error("handler is required");
+  }
+
   // register middlewares
   expressApp.use(json());
   expressApp.use(cors());
@@ -41,7 +45,7 @@ export function createApp(reqParams: ReqParams, handler: HandlerFunc) {
     } catch (e) {
       res.statusCode = 400;
       res.json({
-        message: "something went wrong",
+        message: e.message,
       });
     }
   });
@@ -58,7 +62,7 @@ export function createApp(reqParams: ReqParams, handler: HandlerFunc) {
     } catch (e) {
       res.statusCode = 400;
       res.json({
-        message: "something went wrong",
+        message: e.message,
         error: e.message,
       });
     }

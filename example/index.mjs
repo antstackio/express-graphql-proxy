@@ -10,6 +10,7 @@
  */
 
 // import the default function which can be used to create an express app
+import { query } from "express";
 import { createApp } from "../dist/index.js";
 
 // define handlers for each query/mutation type
@@ -76,15 +77,20 @@ function handlerFunc(gqlObject, context) {
   // each req can have multiple queries or mutations inside hence
   // gqlObject will have queryObjects instead of single one.
   // Will have to iterate over each of them and decide if user has required permissions
-  const result = gqlObject.queryObjects.every((item) =>
+  const result = gqlObject.queryObjects.every((item) => {
     // map the gqlObject to a suitable handler
-    handlers[gqlObject.type][item.operationName](
-      item.variables,
-      item.selectedFields,
-      // inject the parsed user deeets so its available in the handlers
-      { ...context, user: { _id: userId, admin } }
-    )
-  );
+    const queryHandler = handlers?.[gqlObject.type]?.[item.operationName];
+
+    if (queryHandler)
+      return queryHandler(
+        item.variables,
+        item.selectedFields,
+        // inject the parsed user deeets so its available in the handlers
+        { ...context, user: { _id: userId, admin } }
+      );
+
+    return true;
+  });
 
   // if true then req is proxied, else responded with 401 Unauthorized
   return result;
@@ -93,7 +99,7 @@ function handlerFunc(gqlObject, context) {
 // create an express app
 const app = createApp(
   {
-    resourceUri: "https://my-app.imaginary-service.com/graphql",
+    resourceUri: "http://localhost:8080/graphql",
     headers: {
       api_key: process.env.API_KEY,
     },
