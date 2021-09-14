@@ -10,7 +10,7 @@
  */
 
 // import the default function which can be used to create an express app
-import createApp from "@antstackio/express-graphql-proxy";
+import { createApp } from "../dist/index.js";
 
 // define handlers for each query/mutation type
 const handlers = {

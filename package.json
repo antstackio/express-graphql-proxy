@@ -1,6 +1,6 @@
 {
   "name": "express-graphql-proxy",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "a proxy server built on top of express.js for graphql services.",
   "main": "dist/index.js",
   "scripts": {
