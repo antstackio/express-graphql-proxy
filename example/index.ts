@@ -10,8 +10,7 @@
  */
 
 // import the default function which can be used to create an express app
-import { query } from "express";
-import { createApp } from "../dist/index.js";
+import { createApp } from "../src/index";
 
 // define handlers for each query/mutation type
 const handlers = {
@@ -28,11 +27,11 @@ const handlers = {
 // say user is making some query like     -->        becomes
 // ----------------------------------                ----------
 // query geTodo {                                    {
-//		getTodo(id: 111, userId: 435) {                  args: { id: 111, userId: 435 },
-// 				id																					 selectedFields: {
-// 				task    																				id: 1,
-//				status																					task: 1,
-//		}                                                   status: 1
+//		getTodo(id: 111, userId: 435) {                  variables: { id: 111, userId: 435 },
+//        id                                             selectedFields: {
+//        task                                             id: 1,
+//        status                                           task: 1,
+//		}                                                    status: 1
 // }                                                   }
 //                                                   }
 function getTodo(args, selectedFields, context) {
@@ -101,7 +100,7 @@ const app = createApp(
   {
     resourceUri: "http://localhost:8080/graphql",
     headers: {
-      api_key: process.env.API_KEY,
+      // api_key: process.env.API_KEY,
     },
   },
   handlerFunc
