@@ -1,6 +1,6 @@
 {
   "name": "@antstackio/express-graphql-proxy",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "a proxy server built on top of express.js for graphql services.",
   "main": "dist/index.js",
   "scripts": {
