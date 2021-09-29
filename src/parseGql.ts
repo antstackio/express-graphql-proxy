@@ -34,9 +34,9 @@ function parse(ast, preDefs = {}) {
 function parseArguments(args) {
   const result = {};
   for (const arg of args) {
-    result[arg.name.value] = arg.value.value
-      ? arg.value.value
-      : parseArguments(arg.value.fields);
+    result[arg.name.value] = arg.value.fields
+      ? parseArguments(arg.value.fields)
+      : arg.value.value;
   }
   return result;
 }
