@@ -16,6 +16,10 @@ export function createApp(reqParams: ReqParams, handler: HandlerFunc) {
     throw new Error("handler is required");
   }
 
+  // handling custom route
+  let customRoute = "";
+  if(reqParams.route) customRoute = reqParams.route;
+
   // register middlewares
   expressApp.use(json());
   expressApp.use(cors());
@@ -51,7 +55,7 @@ export function createApp(reqParams: ReqParams, handler: HandlerFunc) {
   });
 
   // request handler
-  expressApp.post("/", async (req, res) => {
+  expressApp.post("/" + customRoute, async (req, res) => {
     try {
       const data = await graphQLClient.request(
         req.body.query,
