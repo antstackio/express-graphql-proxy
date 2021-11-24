@@ -5,6 +5,7 @@ export interface ReqParams {
   headers: {
     [key: string]: string;
   };
+  route: string;
 }
 
 type Context = {
