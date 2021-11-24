@@ -17,8 +17,7 @@ export function createApp(reqParams: ReqParams, handler: HandlerFunc) {
   }
 
   // handling custom route
-  let customRoute = "";
-  if(reqParams.route) customRoute = reqParams.route;
+  let customRoute = reqParams.route ? reqParams.route : "/" ;
 
   // register middlewares
   expressApp.use(json());
@@ -55,7 +54,7 @@ export function createApp(reqParams: ReqParams, handler: HandlerFunc) {
   });
 
   // request handler
-  expressApp.post("/" + customRoute, async (req, res) => {
+  expressApp.post(customRoute, async (req, res) => {
     try {
       const data = await graphQLClient.request(
         req.body.query,
